@@ -3,6 +3,17 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "domain": [
+        "./dist/domain"
+      ],
+      "infrastructure": [
+        "./dist/infrastructure"
+      ],
+      "shared": [
+        "./dist/shared"
+      ]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -22,5 +33,43 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
-  "files": []
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/shell/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/shell/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/auth-mfe/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/auth-mfe/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/products-mfe/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/products-mfe/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/domain/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/infrastructure/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/infrastructure/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/shared/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/shared/tsconfig.spec.json"
+    }
+  ]
 }
