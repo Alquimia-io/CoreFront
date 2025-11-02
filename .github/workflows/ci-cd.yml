@@ -16,10 +16,6 @@ jobs:
     name: Test & Lint
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        project: [shell, auth-mfe, domain, infrastructure, shared]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -36,25 +32,27 @@ jobs:
       - name: Build libraries
         run: npm run build:libs --if-present
 
-      - name: Run linter
-        run: npm run lint:${{ matrix.project }} --if-present
+      - name: Run linter for all projects
+        run: |
+          npm run lint:shell --if-present
+          npm run lint:auth-mfe --if-present
+          npm run lint:domain --if-present
+          npm run lint:infrastructure --if-present
+          npm run lint:shared --if-present
 
-      - name: Run tests
-        run: npm run test:${{ matrix.project }} --if-present
-
-      - name: Generate coverage report
-        if: matrix.project != 'shared'
-        run: npm run test:${{ matrix.project }}:coverage --if-present
+      - name: Run tests for all projects
+        run: |
+          npm run test:domain --if-present
+          npm run test:infrastructure --if-present
+          npm run test:shared --if-present
+          npm run test:shell --if-present
+          npm run test:auth-mfe --if-present
 
   # Job para build de las aplicaciones
   build:
     name: Build Applications
     runs-on: ubuntu-latest
     needs: test
-
-    strategy:
-      matrix:
-        app: [shell, auth-mfe]
 
     steps:
       - name: Checkout code
@@ -70,19 +68,26 @@ jobs:
         run: npm ci
 
       - name: Build libraries first
+        run: npm run build:libs --if-present
+
+      - name: Build applications
         run: |
-          npm run build:domain --if-present
-          npm run build:infrastructure --if-present
-          npm run build:shared --if-present
+          npm run build:shell --if-present
+          npm run build:auth-mfe --if-present
 
-      - name: Build ${{ matrix.app }}
-        run: npm run build:${{ matrix.app }} --configuration=production --if-present
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+      - name: Upload shell artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.app }}-dist
-          path: dist/${{ matrix.app }}
+          name: shell-dist
+          path: dist/shell
+
+      - name: Upload auth-mfe artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auth-mfe-dist
+          path: dist/auth-mfe
 
   # Job para análisis de seguridad
   security:
@@ -135,6 +140,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Build libraries
+        run: npm run build:libs --if-present
 
       - name: Run tests with coverage
         run: npm run test:coverage --if-present
