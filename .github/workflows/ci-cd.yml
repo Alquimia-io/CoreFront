@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        project: [shell, auth-mfe, products-mfe, domain, infrastructure, shared]
+        project: [shell, auth-mfe, domain, infrastructure, shared]
 
     steps:
       - name: Checkout code
@@ -51,7 +51,7 @@ jobs:
 
     strategy:
       matrix:
-        app: [shell, auth-mfe, products-mfe]
+        app: [shell, auth-mfe]
 
     steps:
       - name: Checkout code
