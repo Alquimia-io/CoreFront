@@ -70,6 +70,15 @@
 						]
 					}
 				},
+				"lint": {
+					"builder": "@angular-eslint/builder:lint",
+					"options": {
+						"lintFilePatterns": [
+							"projects/shell/**/*.ts",
+							"projects/shell/**/*.html"
+						]
+					}
+				},
 				"esbuild": {
 					"builder": "@angular-devkit/build-angular:application",
 					"options": {
@@ -195,6 +204,15 @@
 						]
 					}
 				},
+				"lint": {
+					"builder": "@angular-eslint/builder:lint",
+					"options": {
+						"lintFilePatterns": [
+							"projects/auth-mfe/**/*.ts",
+							"projects/auth-mfe/**/*.html"
+						]
+					}
+				},
 				"esbuild": {
 					"builder": "@angular-devkit/build-angular:application",
 					"options": {
@@ -256,131 +274,6 @@
 				}
 			}
 		},
-		"products-mfe": {
-			"projectType": "application",
-			"schematics": {
-				"@schematics/angular:component": {
-					"style": "scss",
-					"standalone": false
-				},
-				"@schematics/angular:directive": {
-					"standalone": false
-				},
-				"@schematics/angular:pipe": {
-					"standalone": false
-				}
-			},
-			"root": "projects/products-mfe",
-			"sourceRoot": "projects/products-mfe/src",
-			"prefix": "app",
-			"architect": {
-				"build": {
-					"builder": "@angular-architects/native-federation:build",
-					"options": {},
-					"configurations": {
-						"production": {
-							"target": "products-mfe:esbuild:production"
-						},
-						"development": {
-							"target": "products-mfe:esbuild:development",
-							"dev": true
-						}
-					},
-					"defaultConfiguration": "production"
-				},
-				"serve": {
-					"builder": "@angular-architects/native-federation:build",
-					"options": {
-						"target": "products-mfe:serve-original:development",
-						"rebuildDelay": 0,
-						"dev": true,
-						"port": 0
-					}
-				},
-				"extract-i18n": {
-					"builder": "@angular/build:extract-i18n"
-				},
-				"test": {
-					"builder": "@angular/build:karma",
-					"options": {
-						"polyfills": [
-							"zone.js",
-							"zone.js/testing"
-						],
-						"tsConfig": "projects/products-mfe/tsconfig.spec.json",
-						"inlineStyleLanguage": "scss",
-						"assets": [
-							{
-								"glob": "**/*",
-								"input": "projects/products-mfe/public"
-							}
-						],
-						"styles": [
-							"projects/products-mfe/src/styles.scss"
-						]
-					}
-				},
-				"esbuild": {
-					"builder": "@angular-devkit/build-angular:application",
-					"options": {
-						"browser": "projects/products-mfe/src/main.ts",
-						"polyfills": [
-							"zone.js",
-							"es-module-shims"
-						],
-						"tsConfig": "projects/products-mfe/tsconfig.app.json",
-						"inlineStyleLanguage": "scss",
-						"assets": [
-							{
-								"glob": "**/*",
-								"input": "projects/products-mfe/public"
-							}
-						],
-						"styles": [
-							"projects/products-mfe/src/styles.scss"
-						]
-					},
-					"configurations": {
-						"production": {
-							"budgets": [
-								{
-									"type": "initial",
-									"maximumWarning": "500kB",
-									"maximumError": "1MB"
-								},
-								{
-									"type": "anyComponentStyle",
-									"maximumWarning": "4kB",
-									"maximumError": "8kB"
-								}
-							],
-							"outputHashing": "all"
-						},
-						"development": {
-							"optimization": false,
-							"extractLicenses": false,
-							"sourceMap": true
-						}
-					},
-					"defaultConfiguration": "production"
-				},
-				"serve-original": {
-					"builder": "@angular/build:dev-server",
-					"configurations": {
-						"production": {
-							"buildTarget": "products-mfe:esbuild:production"
-						},
-						"development": {
-							"buildTarget": "products-mfe:esbuild:development"
-						}
-					},
-					"defaultConfiguration": "development",
-					"options": {
-						"port": 4202
-					}
-				}
-			}
-		},
 		"domain": {
 			"projectType": "library",
 			"root": "projects/domain",
@@ -406,6 +299,14 @@
 						"polyfills": [
 							"zone.js",
 							"zone.js/testing"
+						]
+					}
+				},
+				"lint": {
+					"builder": "@angular-eslint/builder:lint",
+					"options": {
+						"lintFilePatterns": [
+							"projects/domain/**/*.ts"
 						]
 					}
 				}
@@ -438,6 +339,14 @@
 							"zone.js/testing"
 						]
 					}
+				},
+				"lint": {
+					"builder": "@angular-eslint/builder:lint",
+					"options": {
+						"lintFilePatterns": [
+							"projects/infrastructure/**/*.ts"
+						]
+					}
 				}
 			}
 		},
@@ -466,6 +375,14 @@
 						"polyfills": [
 							"zone.js",
 							"zone.js/testing"
+						]
+					}
+				},
+				"lint": {
+					"builder": "@angular-eslint/builder:lint",
+					"options": {
+						"lintFilePatterns": [
+							"projects/shared/**/*.ts"
 						]
 					}
 				}
