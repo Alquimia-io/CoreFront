@@ -177,7 +177,7 @@ jobs:
           action: "upload"
           app_location: "/"
           api_location: ""
-          output_location: "dist/shell"
+          output_location: "dist/shell/browser"
           app_build_command: "npm run build:all"
           skip_app_build: false
 
