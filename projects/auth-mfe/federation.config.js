@@ -5,7 +5,7 @@ module.exports = withNativeFederation({
   name: 'auth-mfe',
 
   exposes: {
-    './Component': './projects/auth-mfe/src/app/app.ts',
+    './AuthModule': './projects/auth-mfe/src/app/auth/auth.module.ts',
   },
 
   shared: {

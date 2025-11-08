@@ -1,7 +1,8 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { UserHttpAdapter } from './adapters/user-http.adapter';
+import { AuthMockAdapter } from './adapters/auth/auth-mock.adapter';
 
 /**
  * Módulo de Infraestructura
@@ -10,8 +11,7 @@ import { UserHttpAdapter } from './adapters/user-http.adapter';
  */
 @NgModule({
   imports: [
-    CommonModule,
-    HttpClientModule
+    CommonModule
   ]
 })
 export class InfrastructureModule {
@@ -23,10 +23,16 @@ export class InfrastructureModule {
     return {
       ngModule: InfrastructureModule,
       providers: [
+        // Proveer HttpClient con nueva API
+        provideHttpClient(withInterceptorsFromDi()),
         // Mapeo de Ports a Adapters
         {
           provide: 'UserPort',
           useClass: UserHttpAdapter
+        },
+        {
+          provide: 'AuthPort',
+          useClass: AuthMockAdapter
         }
         // Aquí se pueden agregar más mappings Port -> Adapter
       ]

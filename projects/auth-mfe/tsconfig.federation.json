@@ -5,7 +5,10 @@
     "types": []
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "../../dist/domain",
+    "../../dist/infrastructure",
+    "../../dist/shared"
   ],
   "exclude": [
     "src/**/*.spec.ts"

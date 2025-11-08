@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from '../../entities/user.entity';
 import { UserModel } from '../../models/user.model';
 import { UserPort } from '../../ports/user.port';
 
